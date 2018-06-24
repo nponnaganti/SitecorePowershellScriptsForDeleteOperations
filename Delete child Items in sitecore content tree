@@ -1,0 +1,9 @@
+$childItems = Get-ChildItem –recurse -Path master:"/sitecore/content/Habitat/Home/Modules/Feature/Person"
+$deletedItemCount = 0;
+New-UsingBlock (New-Object Sitecore.Data.BulkUpdateContext) {
+	foreach($childItem in $childItems){
+	    Remove-Item -Path $childItem.ItemPath
+	    $deletedItemCount++;
+	}
+	Write-Host "Process completed, Deleted $deletedItemCount Items" -f Green;
+}
